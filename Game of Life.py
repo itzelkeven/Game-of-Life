@@ -1,3 +1,4 @@
+
 import pygame
 import random
 
@@ -7,21 +8,25 @@ screen = pygame.display.set_mode((800, 800))
 clock = pygame.time.Clock()
 
 map = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-       [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0],
+       [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+       [0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0],
        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
        [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
        [0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
        [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-       [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+       [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+       [0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+       [0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
        [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0],
        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0],
        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0],
        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+
+
+map = [[random.randrange(0, 2)]*80 for i in range(80)]
+print(map)
 
 #game loop-------------------------------------
 while True:
@@ -31,22 +36,22 @@ while True:
     for event in pygame.event.get():
         break
     #update section-----------------------------------
-    for i in range(16):
-        for j in range(16):
+    for i in range(80):
+        for j in range(80):
             counter = 0
-            if i < 15 and map[i+1][j] == 1: #check above
+            if i < 79 and map[i+1][j] == 1: #check above
                 counter += 1
             if i > 0 and map[i-1][j] == 1: #check bottom
                 counter += 1
-            if j<15 and map [i][j+1] == 1: #check right
+            if j<79 and map [i][j+1] == 1: #check right
                 counter += 1
             if j > 0 and map [i][j-1] == 1: #check left
                 counter += 1
-            if i<15 and j<15 and map [i+1][j+1] == 1: #check top right corner
+            if i<79 and j<79 and map [i+1][j+1] == 1: #check top right corner
                 counter += 1
-            if i < 15 and j<15 and map [i-1][j+1] == 1: #check bottom right corner
+            if i < 79 and j<79 and map [i-1][j+1] == 1: #check bottom right corner
                 counter += 1
-            if i < 15 and j>= 0 and map[i+1][j-1] ==1: #check top left coprner
+            if i < 79 and j>= 0 and map[i+1][j-1] ==1: #check top left coprner
                 counter += 1
             if i > 0 and j>=0 and map[i-1][j-1] == 1: #check bottom left corner
                 counter += 1
@@ -71,22 +76,21 @@ while True:
 
 
 
-    pygame.time.wait(200)
+    #pygame.time.wait(200)
 
 
     #render section ---------------------------------
     screen.fill((0,0,0))
     #draw section------------------------------------
-    for i in range (16):
-        for j in range (16):
+    for i in range (80):
+        for j in range (80):
             if map[i][j]==0:
-                pygame.draw.rect(screen, (0,0,0), (j*50, i*50, 50, 50))
-                pygame.draw.rect(screen, (255,255,255), (j*50, i*50, 50, 50), 1)
+                pygame.draw.rect(screen, (0,0,0), (j*10, i*10, 10, 10))
+                #pygame.draw.rect(screen, (255,255,255), (j*10, i*10, 10, 10), 1)
             if map[i][j]==1:
-                pygame.draw.rect(screen, (0,200,200), (j*50, i*50, 50, 50))
+                pygame.draw.rect(screen, (0,200,200), (j*10, i*10, 10, 10))
     pygame.display.flip()
 
 
 
 
-pygame.quit()
